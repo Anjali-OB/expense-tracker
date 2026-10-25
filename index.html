@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expense Tracker: know where every rupee goes</title>
+<meta name="description" content="A private, offline expense tracker with monthly sheets, budgets, EMI and SIP reminders, PDF statements and a live dashboard. English, Hindi and Marathi.">
+<meta name="theme-color" content="#5b86b4"><link rel="icon" href="favicon.png">
+<meta property="og:title" content="Expense Tracker"><meta property="og:description" content="Know where every rupee goes. Free, private and offline.">
+<style>
+:root{--ink:#1f3347;--muted:#5d738a;--blue:#5b86b4;--pink:#f4a9c6;--rose:#e0709a;--line:#d3e0ec}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 ui-rounded,"SF Pro Rounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:linear-gradient(160deg,#dce8f4,#c5d8ea 50%,#f6d6e4) fixed}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--cash);background-size:440px 380px;opacity:.5}
+header,section,footer{position:relative;z-index:1}
+a{color:inherit}
+.nav{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 5vw;background:rgba(220,232,244,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.brand{font-weight:800;font-size:19px;text-decoration:none;background:linear-gradient(90deg,#3d6a99,#e0709a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav nav{display:flex;gap:18px;align-items:center}.nav nav a{text-decoration:none;color:var(--muted);font-weight:600}
+.btn{display:inline-block;padding:11px 22px;border-radius:999px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#f6b6cf,#e48bb0);color:#4a1f33!important;box-shadow:0 6px 16px rgba(228,139,176,.4)}
+.btn.alt{background:#fff;box-shadow:0 4px 12px rgba(70,110,150,.15)}
+.wrap{max-width:1100px;margin:auto;padding:64px 5vw}
+.hero{display:grid;gap:36px;align-items:center}
+@media(min-width:900px){.hero{grid-template-columns:1.1fr .9fr}}
+h1{font-size:clamp(34px,6vw,58px);line-height:1.1;margin:0 0 14px;letter-spacing:-.02em}
+h1 em{font-style:normal;background:linear-gradient(90deg,#4f7fb3,#e0709a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:19px;color:var(--muted);max-width:560px}.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.phone{display:none;margin:auto;width:300px;height:610px;border-radius:40px;border:10px solid #1f3347;background:#fff;overflow:hidden;box-shadow:0 24px 60px rgba(31,51,71,.35)}
+.phone iframe{width:100%;height:100%;border:0}
+@media(min-width:900px){.phone{display:block}}
+h2{font-size:clamp(26px,4vw,38px);margin:0 0 8px}.sub{color:var(--muted);margin:0 0 28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:rgba(255,255,255,.78);border:1px solid #fff;border-radius:20px;padding:20px;box-shadow:0 8px 22px rgba(70,110,150,.1)}
+.card h3{margin:8px 0 4px;font-size:18px}.card p{margin:0;color:var(--muted);font-size:15px}.ic{font-size:30px}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.step{counter-increment:s;background:rgba(255,255,255,.7);border-radius:20px;padding:20px 20px 20px 70px;position:relative}
+.step::before{content:counter(s);position:absolute;left:18px;top:18px;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#f6b6cf,#e0709a);color:#fff;font-weight:800;display:grid;place-items:center}
+.step b{display:block}
+#download .box{background:linear-gradient(135deg,rgba(185,207,228,.9),rgba(249,207,224,.9));border-radius:28px;padding:40px 6vw;text-align:center;box-shadow:0 14px 40px rgba(70,110,150,.2)}
+.stores{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:24px 0 10px}
+.store{display:flex;align-items:center;gap:12px;background:#1f3347;color:#fff;text-decoration:none;padding:12px 22px;border-radius:16px;min-width:230px;text-align:left}
+.store span{font-size:28px}.store b{display:block;font-size:18px;line-height:1.2}.store small{opacity:.8}
+.store.soon{opacity:.85}
+.tip{max-width:640px;margin:18px auto 0;color:#3d5a78;font-size:14px}
+footer{text-align:center;padding:30px 5vw 50px;color:var(--muted);font-size:14px}footer a{margin:0 8px}
+@media(max-width:700px){.nav nav a:not(.btn){display:none}.wrap{padding:44px 5vw}}
+</style></head>
+<body id="top">
+<header class="nav"><a class="brand" href="#top">₹ Expense Tracker</a>
+<nav><a href="#features">Features</a><a href="#how">How it works</a><a href="#download">Download</a><a class="btn" href="app/">Open web app</a></nav></header>
+
+<section class="wrap hero">
+ <div><h1>Know where <em>every rupee</em> goes.</h1>
+ <p class="lead">A private expense tracker with monthly sheets, budgets, EMI and SIP reminders, bank-style PDF statements and a live dashboard. Free, offline and in English, हिन्दी and मराठी.</p>
+ <div class="cta"><a class="btn" href="app/">Try it in your browser</a><a class="btn alt" href="#download">Download the app</a></div></div>
+ <div class="phone"><iframe src="app/" title="Live preview of the Expense Tracker app" loading="lazy"></iframe></div>
+</section>
+
+<section class="wrap" id="features"><h2>Everything you need, nothing you don't</h2><p class="sub">The website runs the full app, with every feature below.</p>
+<div class="grid">
+<article class="card"><span class="ic">📅</span><h3>A page for every month</h3><p>Create a month, add credits and expenses, and the leftover balance carries forward automatically.</p></article>
+<article class="card"><span class="ic">💼</span><h3>Credit sources</h3><p>Salary, Ladki Bahin Yojana, Freelance or any other source, each with its own category.</p></article>
+<article class="card"><span class="ic">🧾</span><h3>Bank-statement PDFs</h3><p>Download one month or all months, with opening and closing balance and total credit and debit at the end.</p></article>
+<article class="card"><span class="ic">📊</span><h3>Power BI-style dashboard</h3><p>Click any chart to filter the rest. Trends, category share, daily spending, a heatmap and legends on every chart.</p></article>
+<article class="card"><span class="ic">🎯</span><h3>Budget planner and alerts</h3><p>Tell the app your income and it drafts a budget (50/30/20, or from your own past spending). Or set every limit yourself. Alerts at 80% and when you go over.</p></article>
+<article class="card"><span class="ic">🔔</span><h3>EMI and SIP reminders</h3><p>See what is due this week, mark it paid in one tap, or add it to your phone calendar for real alerts.</p></article>
+<article class="card"><span class="ic">⇪</span><h3>Import from PDF or notes</h3><p>Paste notes or choose a bank or UPI PDF. Review the rows, then add them to the right columns.</p></article>
+<article class="card"><span class="ic">🔒</span><h3>PIN and fingerprint lock</h3><p>Keep your money private behind a PIN, with fingerprint or Face ID where the device allows it.</p></article>
+<article class="card"><span class="ic">🌐</span><h3>English, हिन्दी, मराठी</h3><p>Switch the whole app to Hindi or Marathi from Settings.</p></article>
+<article class="card"><span class="ic">📴</span><h3>Works offline</h3><p>Your data stays on your device. No account, no ads, no tracking.</p></article>
+<article class="card"><span class="ic">☁️</span><h3>Backup and cloud</h3><p>Back up to a file, share it to Drive or iCloud, or turn on optional Google Drive backup.</p></article>
+<article class="card"><span class="ic">💡</span><h3>Stay motivated</h3><p>Earn-more, spend-less quotes and a savings insight on your dashboard.</p></article>
+</div></section>
+
+<section class="wrap" id="how"><h2>How it works</h2><p class="sub">Three steps to a clear picture of your money.</p>
+<div class="steps"><div class="step"><b>Create a month</b>Start with this month. Next month picks up your leftover balance by itself.</div>
+<div class="step"><b>Tap + to add</b>Choose Expense or Credit, pick a category, enter the amount. Or import a PDF or notes.</div>
+<div class="step"><b>Plan, see and share</b>Make a budget, open the dashboard, and download a statement PDF whenever you need one.</div></div></section>
+
+<section class="wrap" id="download"><div class="box"><h2>Get the app</h2><p class="sub" style="margin-bottom:0">Take your expense tracker everywhere. It works offline once installed.</p>
+<div class="stores">
+ <a class="store soon" id="dlAndroid" href="#" data-live="Get it on Google Play"><span>▶</span><div><small>Android</small><b>Google Play</b><small class="state">Coming soon</small></div></a>
+ <a class="store soon" id="dlIos" href="#" data-live="Download on the App Store"><span>🍎</span><div><small>iPhone and iPad</small><b>App Store</b><small class="state">Coming soon</small></div></a>
+</div>
+<p><a class="btn alt" href="app/">Or use the web app right now</a></p>
+<p class="tip"><b>Install from your browser today:</b> on iPhone open the web app in Safari, tap Share, then Add to Home Screen. On Android open it in Chrome, tap the menu, then Install app.</p></div></section>
+
+<footer>© <span id="yr"></span> Expense Tracker · <a href="privacy.html">Privacy</a> · <a href="app/">Web app</a></footer>
+
+<script>
+const note=(x,y,r,a,b)=>`<g transform='translate(${x} ${y}) rotate(${r})'><rect width='130' height='64' rx='8' fill='${a}' stroke='${b}' stroke-width='2'/><circle cx='65' cy='32' r='17' fill='none' stroke='${b}' stroke-width='2'/><text x='65' y='39' text-anchor='middle' font-size='20' font-family='sans-serif' fill='${b}'>₹</text><circle cx='20' cy='32' r='5' fill='${b}'/><circle cx='110' cy='32' r='5' fill='${b}'/></g>`;
+const coin=(x,y)=>`<g transform='translate(${x} ${y})'><circle r='20' fill='#fbe7a1' stroke='#e0b84f' stroke-width='2'/><text y='6' text-anchor='middle' font-size='16' font-family='sans-serif' fill='#c79a2b'>₹</text></g>`;
+const svg=`<svg xmlns='http://www.w3.org/2000/svg' width='440' height='380'>${note(20,30,-12,'#d6efdf','#6fae8a')}${note(250,10,10,'#fde0ec','#e08ab0')}${note(110,190,6,'#d6efdf','#6fae8a')}${note(290,240,-8,'#dfeaf7','#7fa3cb')}${coin(60,320)}${coin(230,160)}${coin(400,150)}</svg>`;
+document.body.style.setProperty("--cash",`url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
+document.getElementById("yr").textContent=new Date().getFullYear();
+/* ===== paste your store links here when the apps are live ===== */
+const LINKS={android:"",ios:""};
+[["dlAndroid","android"],["dlIos","ios"]].forEach(([id,k])=>{const a=document.getElementById(id);
+  if(LINKS[k]){a.href=LINKS[k];a.target="_blank";a.rel="noopener";a.classList.remove("soon");a.querySelector(".state").textContent=a.dataset.live;}
+  else a.addEventListener("click",e=>{e.preventDefault();alert("Coming soon! You can use the web app in the meantime.");});});
+</script></body></html>
