@@ -1,0 +1,73 @@
+name: Test and deploy website
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check the site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check JavaScript has no syntax errors
+        run: |
+          node -e '
+          const fs=require("fs"),cp=require("child_process");
+          for (const f of ["index.html","app/index.html"]) {
+            const m=fs.readFileSync(f,"utf8").match(/<script>([\s\S]*?)<\/script>/);
+            if(!m){console.log("No script in "+f);continue;}
+            fs.writeFileSync("/tmp/check.js",m[1]);
+            cp.execSync("node --check /tmp/check.js",{stdio:"inherit"});
+            console.log("OK "+f);
+          }'
+          node --check app/sw.js
+      - name: Check required files exist
+        run: |
+          for f in index.html privacy.html favicon.png app/index.html app/sw.js app/manifest.webmanifest app/pdf.min.js app/pdf.worker.min.js; do
+            test -f "$f" || { echo "Missing $f"; exit 1; }
+          done
+
+  build:
+    name: Build the site
+    needs: check
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Give every release its own app version
+        run: |
+          V=$(echo "$GITHUB_SHA" | cut -c1-7)
+          sed -i "s/expenses-v[0-9A-Za-z]*/expenses-$V/" app/sw.js
+          grep -o 'const C="[^"]*"' app/sw.js
+      - name: Collect the files to publish
+        run: |
+          mkdir _site
+          tar --exclude=./.git --exclude=./.github --exclude=./_site --exclude=./README.md -cf - . | tar -xf - -C _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    name: Publish to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
