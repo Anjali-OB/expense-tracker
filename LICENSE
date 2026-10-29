@@ -1,0 +1,10 @@
+Copyright (c) 2026 Anjali Prakash Khadke. All rights reserved.
+
+This source code is published for viewing only. No permission is granted to
+copy, modify, distribute, sublicense, sell or otherwise use this software, or
+any part of it, in whole or in part, without prior written permission from
+the copyright holder.
+
+Third-party components included in this repository (pdf.js, Tesseract.js and
+the Tesseract English language data) are licensed under their own licenses
+(Apache License 2.0), which continue to apply to those components.
