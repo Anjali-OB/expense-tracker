@@ -63,4 +63,4 @@ Uses [pdf.js](https://github.com/mozilla/pdf.js) and [Tesseract.js](https://gith
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+All rights reserved. See [LICENSE](LICENSE).

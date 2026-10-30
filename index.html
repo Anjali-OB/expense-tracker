@@ -1,83 +1,116 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Expense Tracker: know where every rupee goes</title>
-<meta name="description" content="A private, offline expense tracker with monthly sheets, budgets, EMI and SIP reminders, PDF statements and a live dashboard. English, Hindi and Marathi.">
+<meta name="description" content="A private, offline expense tracker with monthly sheets, bill scanning, budgets, EMI and SIP reminders, PDF statements and a live dashboard. English, Hindi and Marathi.">
 <meta name="theme-color" content="#5b86b4"><link rel="icon" href="favicon.png">
 <meta property="og:title" content="Expense Tracker"><meta property="og:description" content="Know where every rupee goes. Free, private and offline.">
 <style>
-:root{--ink:#1f3347;--muted:#5d738a;--blue:#5b86b4;--pink:#f4a9c6;--rose:#e0709a;--line:#d3e0ec}
+:root{--ink:#1f3347;--muted:#5d738a;--blue:#5b86b4;--pink:#f4a9c6;--rose:#e0709a;--d1:0 1px 0 rgba(255,255,255,.95) inset,0 2px 3px rgba(70,110,150,.12),0 12px 28px rgba(70,110,150,.17);--d2:0 2px 0 rgba(255,255,255,.95) inset,0 26px 50px rgba(70,110,150,.3),0 10px 16px rgba(70,110,150,.16)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font:16px/1.6 ui-rounded,"SF Pro Rounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:linear-gradient(160deg,#dce8f4,#c5d8ea 50%,#f6d6e4) fixed}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--cash);background-size:440px 380px;opacity:.5}
-header,section,footer{position:relative;z-index:1}
-a{color:inherit}
-.nav{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 5vw;background:rgba(220,232,244,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.brand{font-weight:800;font-size:19px;text-decoration:none;background:linear-gradient(90deg,#3d6a99,#e0709a);-webkit-background-clip:text;background-clip:text;color:transparent}
-.nav nav{display:flex;gap:18px;align-items:center}.nav nav a{text-decoration:none;color:var(--muted);font-weight:600}
-.btn{display:inline-block;padding:11px 22px;border-radius:999px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#f6b6cf,#e48bb0);color:#4a1f33!important;box-shadow:0 6px 16px rgba(228,139,176,.4)}
-.btn.alt{background:#fff;box-shadow:0 4px 12px rgba(70,110,150,.15)}
-.wrap{max-width:1100px;margin:auto;padding:64px 5vw}
-.hero{display:grid;gap:36px;align-items:center}
-@media(min-width:900px){.hero{grid-template-columns:1.1fr .9fr}}
-h1{font-size:clamp(34px,6vw,58px);line-height:1.1;margin:0 0 14px;letter-spacing:-.02em}
+body{margin:0;font:16px/1.6 ui-rounded,"SF Pro Rounded",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:linear-gradient(135deg,#d7e6f4,#bcd2e8 35%,#f3cfe0 70%,#cddff0) fixed;background-size:300% 300%;animation:mesh 22s ease-in-out infinite;overflow-x:hidden}
+@keyframes mesh{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+body::before{content:"";position:fixed;inset:-40px;z-index:0;pointer-events:none;background:var(--cash);background-size:440px 380px;opacity:.5;animation:drift 90s linear infinite;transform:translate(calc(var(--mx,0)*-18px),calc(var(--my,0)*-18px))}
+@keyframes drift{to{background-position:440px 380px}}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(640px 440px at 10% 14%,rgba(244,169,198,.5),transparent 62%),radial-gradient(560px 460px at 92% 82%,rgba(120,160,215,.42),transparent 62%);animation:orb 16s ease-in-out infinite alternate}
+@keyframes orb{to{transform:translate3d(30px,-22px,0) scale(1.07)}}
+header,section,footer{position:relative;z-index:1}a{color:inherit}
+.nav{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 5vw;background:rgba(220,232,244,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 6px 20px rgba(70,110,150,.12)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;text-decoration:none}
+.brand img{width:40px;height:40px;border-radius:11px;box-shadow:0 5px 10px rgba(70,110,150,.3);transition:transform .5s}.brand:hover img{transform:rotateY(360deg)}
+.brand span{background:linear-gradient(90deg,#3d6a99,#e0709a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav nav{display:flex;gap:18px;align-items:center}.nav nav a{text-decoration:none;color:var(--muted);font-weight:600}.nav nav a:hover{color:var(--ink)}
+.btn{display:inline-block;padding:12px 24px;border-radius:999px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#f8bcd3,#e68fb2);color:#4a1f33!important;box-shadow:0 5px 0 #c8628a,0 12px 20px rgba(228,139,176,.45);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 #c8628a,0 16px 24px rgba(228,139,176,.5)}.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #c8628a,0 3px 6px rgba(228,139,176,.4)}
+.btn.alt{background:linear-gradient(135deg,#fff,#eaf2fa);box-shadow:0 5px 0 #b3c7dc,0 12px 20px rgba(70,110,150,.2)}.btn.alt:hover{box-shadow:0 7px 0 #b3c7dc,0 16px 24px rgba(70,110,150,.25)}.btn.alt:active{box-shadow:0 1px 0 #b3c7dc}
+.wrap{max-width:1120px;margin:auto;padding:70px 5vw}
+.hero{display:grid;gap:40px;align-items:center;min-height:82vh}@media(min-width:920px){.hero{grid-template-columns:1.05fr .95fr}}
+.tag{display:inline-block;background:rgba(255,255,255,.75);padding:6px 16px;border-radius:999px;font-weight:700;font-size:14px;box-shadow:var(--d1);margin-bottom:16px}
+h1{font-size:clamp(36px,6.4vw,64px);line-height:1.06;margin:0 0 16px;letter-spacing:-.025em}
 h1 em{font-style:normal;background:linear-gradient(90deg,#4f7fb3,#e0709a);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{font-size:19px;color:var(--muted);max-width:560px}.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
-.phone{display:none;margin:auto;width:300px;height:610px;border-radius:40px;border:10px solid #1f3347;background:#fff;overflow:hidden;box-shadow:0 24px 60px rgba(31,51,71,.35)}
-.phone iframe{width:100%;height:100%;border:0}
-@media(min-width:900px){.phone{display:block}}
-h2{font-size:clamp(26px,4vw,38px);margin:0 0 8px}.sub{color:var(--muted);margin:0 0 28px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.card{background:rgba(255,255,255,.78);border:1px solid #fff;border-radius:20px;padding:20px;box-shadow:0 8px 22px rgba(70,110,150,.1)}
-.card h3{margin:8px 0 4px;font-size:18px}.card p{margin:0;color:var(--muted);font-size:15px}.ic{font-size:30px}
-.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.step{counter-increment:s;background:rgba(255,255,255,.7);border-radius:20px;padding:20px 20px 20px 70px;position:relative}
-.step::before{content:counter(s);position:absolute;left:18px;top:18px;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#f6b6cf,#e0709a);color:#fff;font-weight:800;display:grid;place-items:center}
-.step b{display:block}
-#download .box{background:linear-gradient(135deg,rgba(185,207,228,.9),rgba(249,207,224,.9));border-radius:28px;padding:40px 6vw;text-align:center;box-shadow:0 14px 40px rgba(70,110,150,.2)}
-.stores{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:24px 0 10px}
-.store{display:flex;align-items:center;gap:12px;background:#1f3347;color:#fff;text-decoration:none;padding:12px 22px;border-radius:16px;min-width:230px;text-align:left}
-.store span{font-size:28px}.store b{display:block;font-size:18px;line-height:1.2}.store small{opacity:.8}
-.store.soon{opacity:.85}
-.tip{max-width:640px;margin:18px auto 0;color:#3d5a78;font-size:14px}
-footer{text-align:center;padding:30px 5vw 50px;color:var(--muted);font-size:14px}footer a{margin:0 8px}
-@media(max-width:700px){.nav nav a:not(.btn){display:none}.wrap{padding:44px 5vw}}
+.lead{font-size:19px;color:var(--muted);max-width:540px}.cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:26px}
+.stage{position:relative;height:620px;perspective:1300px;display:none}@media(min-width:920px){.stage{display:block}}
+.phone3d{position:absolute;left:50%;top:50%;width:290px;height:580px;margin:-290px 0 0 -145px;border-radius:44px;border:11px solid #1f3347;background:linear-gradient(160deg,#dbe8f5,#f5d7e5);box-shadow:30px 40px 60px rgba(31,51,71,.4),inset 0 0 0 2px rgba(255,255,255,.2);transform-style:preserve-3d;transform:rotateY(calc(-18deg + var(--mx,0)*14deg)) rotateX(calc(8deg + var(--my,0)*-10deg)) rotateZ(2deg);transition:transform .25s ease-out;overflow:hidden}
+.phone3d::before{content:"";position:absolute;top:8px;left:50%;width:84px;height:20px;margin-left:-42px;border-radius:12px;background:#1f3347;z-index:3}
+.scr{padding:38px 14px 14px;font-size:11px}.scr h5{margin:0 0 8px;font-size:14px;display:flex;align-items:center;gap:6px}
+.mini{display:flex;gap:6px;margin-bottom:8px}.mini div{flex:1;background:rgba(255,255,255,.85);border-radius:12px;padding:7px;box-shadow:0 4px 8px rgba(70,110,150,.15)}.mini small{display:block;color:var(--muted);font-size:9px}.mini b{font-size:12px}
+.pane{background:rgba(255,255,255,.85);border-radius:14px;padding:8px;margin-bottom:8px;box-shadow:0 6px 12px rgba(70,110,150,.15);display:flex;align-items:center;justify-content:center;gap:10px}
+.fabm{position:absolute;right:16px;bottom:16px;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 32% 26%,#ffe0ec,#f59cc0 52%,#d85c8c);box-shadow:0 10px 16px rgba(216,92,140,.5),inset -4px -5px 8px rgba(150,35,85,.35);display:grid;place-items:center;color:#fff;font-size:24px}
+.fc{position:absolute;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#a87c14;background:radial-gradient(circle at 32% 28%,#fff6c9,#f6d56b 55%,#d6a62a);border:4px solid #e0b84f;box-shadow:0 14px 18px rgba(120,90,20,.35);animation:float 6s ease-in-out infinite;transform:translate(calc(var(--mx,0)*var(--k,30px)),calc(var(--my,0)*var(--k,30px)))}
+@keyframes float{50%{margin-top:-16px}}
+.note{position:absolute;width:130px;height:64px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:24px;box-shadow:0 14px 20px rgba(31,51,71,.25);animation:float 7s ease-in-out infinite;transform:translate(calc(var(--mx,0)*var(--k,30px)),calc(var(--my,0)*var(--k,30px))) rotate(var(--r,0deg))}
+h2{font-size:clamp(28px,4.2vw,42px);margin:0 0 8px;letter-spacing:-.02em}.sub{color:var(--muted);margin:0 0 30px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px}
+.card{background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(255,255,255,.62));border:1px solid rgba(255,255,255,.95);border-radius:22px;padding:22px;box-shadow:var(--d1);transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,opacity .7s,translate .7s}
+.card:hover{box-shadow:var(--d2)}.card h3{margin:10px 0 4px;font-size:18px}.card p{margin:0;color:var(--muted);font-size:15px}
+.ic{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:16px;font-size:26px;background:linear-gradient(145deg,#fff,#dbe8f5);box-shadow:0 6px 0 #b9cfe4,0 12px 18px rgba(70,110,150,.25)}
+.rv{opacity:0;translate:0 34px}.rv.in{opacity:1;translate:0 0}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.step{counter-increment:s;background:rgba(255,255,255,.75);border-radius:22px;padding:22px 22px 22px 74px;position:relative;box-shadow:var(--d1)}
+.step::before{content:counter(s);position:absolute;left:20px;top:20px;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#ffd3e4,#e0709a);color:#fff;font-weight:800;display:grid;place-items:center;box-shadow:0 6px 0 #b9507a,0 10px 14px rgba(224,112,154,.4)}.step b{display:block}
+#download .box{background:linear-gradient(135deg,rgba(185,207,228,.92),rgba(249,207,224,.92));border-radius:32px;padding:46px 6vw;text-align:center;box-shadow:var(--d2)}
+.stores{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin:26px 0 14px}
+.store{display:flex;align-items:center;gap:14px;background:linear-gradient(160deg,#2c4660,#1f3347);color:#fff;text-decoration:none;padding:13px 24px;border-radius:18px;min-width:240px;text-align:left;box-shadow:0 6px 0 #0f1c29,0 16px 24px rgba(31,51,71,.4);transition:transform .12s,box-shadow .12s}
+.store:hover{transform:translateY(-3px);box-shadow:0 9px 0 #0f1c29,0 20px 28px rgba(31,51,71,.45)}.store:active{transform:translateY(4px);box-shadow:0 2px 0 #0f1c29}
+.store span{font-size:30px}.store b{display:block;font-size:19px;line-height:1.2}.store small{opacity:.8;display:block}
+.tip{max-width:660px;margin:20px auto 0;color:#3d5a78;font-size:14px}
+footer{text-align:center;padding:30px 5vw 54px;color:var(--muted);font-size:14px}footer a{margin:0 8px}
+@media(max-width:700px){.nav nav a:not(.btn){display:none}.wrap{padding:46px 5vw}.hero{min-height:auto}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;translate:0 0}}
+@media(max-width:700px){.brand{font-size:16px;white-space:nowrap}.brand img{width:34px;height:34px}.nav .btn{padding:9px 16px;font-size:14px;white-space:nowrap}}
+body::before{opacity:.3}.lead{color:#3d5a78}
 </style></head>
 <body id="top">
-<header class="nav"><a class="brand" href="#top">₹ Expense Tracker</a>
+<header class="nav"><a class="brand" href="#top"><img src="app/icon-192.png" alt="Expense Tracker logo"><span>Expense Tracker</span></a>
 <nav><a href="#features">Features</a><a href="#how">How it works</a><a href="#download">Download</a><a class="btn" href="app/">Open web app</a></nav></header>
 
 <section class="wrap hero">
- <div><h1>Know where <em>every rupee</em> goes.</h1>
- <p class="lead">A private expense tracker with monthly sheets, budgets, EMI and SIP reminders, bank-style PDF statements and a live dashboard. Free, offline and in English, हिन्दी and मराठी.</p>
+ <div><span class="tag">Free · Private · Works offline</span><h1>Know where <em>every rupee</em> goes.</h1>
+ <p class="lead">Track money by month, scan a bill, plan a budget and see it all on a live dashboard. English, हिन्दी and मराठी.</p>
  <div class="cta"><a class="btn" href="app/">Try it in your browser</a><a class="btn alt" href="#download">Download the app</a></div></div>
- <div class="phone"><iframe src="app/" title="Live preview of the Expense Tracker app" loading="lazy"></iframe></div>
+ <div class="stage" aria-hidden="true">
+  <div class="fc" style="width:74px;height:74px;left:6%;top:8%;font-size:30px;--k:40px">₹</div>
+  <div class="fc" style="width:54px;height:54px;right:4%;top:46%;font-size:22px;--k:-34px;animation-delay:-2s">₹</div>
+  <div class="fc" style="width:64px;height:64px;left:12%;bottom:6%;font-size:26px;--k:26px;animation-delay:-4s">₹</div>
+  <div class="note" style="right:0;top:6%;background:linear-gradient(135deg,#fde0ec,#f4a9c6);color:#a24a72;--r:10deg;--k:-44px">₹500</div>
+  <div class="note" style="left:-2%;top:56%;background:linear-gradient(135deg,#d6efdf,#9fd3b4);color:#3f7d58;--r:-12deg;--k:36px;animation-delay:-3s">₹100</div>
+  <div class="phone3d"><div class="scr">
+    <h5><svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#f6d56b" stroke="#e0b84f" stroke-width="2"/><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="800" fill="#a87c14">₹</text></svg> Expense Tracker</h5>
+    <div class="mini"><div><small>Credit</small><b style="color:#2f9e83">₹58,000</b></div><div><small>Debit</small><b style="color:#c9446f">₹31,450</b></div><div><small>Remaining</small><b>₹26,550</b></div></div>
+    <div class="pane"><svg width="92" height="92" viewBox="0 0 100 100"><g transform="rotate(-90 50 50)" fill="none" stroke-width="22"><circle cx="50" cy="50" r="34" stroke="#5b8def" stroke-dasharray="96 214"/><circle cx="50" cy="50" r="34" stroke="#f59eb8" stroke-dasharray="64 214" stroke-dashoffset="-96"/><circle cx="50" cy="50" r="34" stroke="#4fb79a" stroke-dasharray="40 214" stroke-dashoffset="-160"/><circle cx="50" cy="50" r="34" stroke="#f2b45a" stroke-dasharray="14 214" stroke-dashoffset="-200"/></g></svg><div style="line-height:1.8"><span style="color:#5b8def">●</span> Home<br><span style="color:#f59eb8">●</span> Food<br><span style="color:#4fb79a">●</span> Travel<br><span style="color:#f2b45a">●</span> SIP</div></div>
+    <div class="pane" style="align-items:flex-end;height:96px"><svg width="220" height="80" viewBox="0 0 220 80"><g><rect x="8" y="30" width="22" height="48" rx="5" fill="#4fb79a"/><rect x="34" y="42" width="22" height="36" rx="5" fill="#e0709a"/><rect x="68" y="18" width="22" height="60" rx="5" fill="#4fb79a"/><rect x="94" y="38" width="22" height="40" rx="5" fill="#e0709a"/><rect x="128" y="8" width="22" height="70" rx="5" fill="#4fb79a"/><rect x="154" y="34" width="22" height="44" rx="5" fill="#e0709a"/></g><polyline points="30,40 80,24 140,14 190,26" fill="none" stroke="#7b8fd8" stroke-width="3" stroke-linecap="round"/></svg></div>
+    <div class="pane" style="justify-content:flex-start;font-size:11px">🎯 Food: 84% of budget used</div>
+    <div class="fabm">+</div></div></div>
+ </div>
 </section>
 
 <section class="wrap" id="features"><h2>Everything you need, nothing you don't</h2><p class="sub">The website runs the full app, with every feature below.</p>
 <div class="grid">
-<article class="card"><span class="ic">📅</span><h3>A page for every month</h3><p>Create a month, add credits and expenses, and the leftover balance carries forward automatically.</p></article>
-<article class="card"><span class="ic">💼</span><h3>Credit sources</h3><p>Salary, Ladki Bahin Yojana, Freelance or any other source, each with its own category.</p></article>
-<article class="card"><span class="ic">🧾</span><h3>Bank-statement PDFs</h3><p>Download one month or all months, with opening and closing balance and total credit and debit at the end.</p></article>
-<article class="card"><span class="ic">📊</span><h3>Power BI-style dashboard</h3><p>Click any chart to filter the rest. Trends, category share, daily spending, a heatmap and legends on every chart.</p></article>
-<article class="card"><span class="ic">🎯</span><h3>Budget planner and alerts</h3><p>Tell the app your income and it drafts a budget (50/30/20, or from your own past spending). Or set every limit yourself. Alerts at 80% and when you go over.</p></article>
-<article class="card"><span class="ic">🔔</span><h3>EMI and SIP reminders</h3><p>See what is due this week, mark it paid in one tap, or add it to your phone calendar for real alerts.</p></article>
-<article class="card"><span class="ic">⇪</span><h3>Import from PDF or notes</h3><p>Paste notes or choose a bank or UPI PDF. Review the rows, then add them to the right columns.</p></article>
-<article class="card"><span class="ic">🔒</span><h3>PIN and fingerprint lock</h3><p>Keep your money private behind a PIN, with fingerprint or Face ID where the device allows it.</p></article>
-<article class="card"><span class="ic">🌐</span><h3>English, हिन्दी, मराठी</h3><p>Switch the whole app to Hindi or Marathi from Settings.</p></article>
-<article class="card"><span class="ic">📴</span><h3>Works offline</h3><p>Your data stays on your device. No account, no ads, no tracking.</p></article>
-<article class="card"><span class="ic">☁️</span><h3>Backup and cloud</h3><p>Back up to a file, share it to Drive or iCloud, or turn on optional Google Drive backup.</p></article>
-<article class="card"><span class="ic">💡</span><h3>Stay motivated</h3><p>Earn-more, spend-less quotes and a savings insight on your dashboard.</p></article>
+<article class="card rv"><span class="ic">📅</span><h3>A page for every month</h3><p>Create a month, add credits and expenses, and your leftover balance carries forward by itself.</p></article>
+<article class="card rv"><span class="ic">💼</span><h3>Any source of income</h3><p>Salary, freelance, business, gifts, or type your own, like pocket money or a scholarship.</p></article>
+<article class="card rv"><span class="ic">📷</span><h3>Scan a bill</h3><p>Take a photo of a bill and it becomes an expense. The reading happens on your device.</p></article>
+<article class="card rv"><span class="ic">🧾</span><h3>Bank-statement PDFs</h3><p>Download one month or all months, with opening and closing balance and total credit and debit.</p></article>
+<article class="card rv"><span class="ic">📊</span><h3>Power BI-style dashboard</h3><p>Click any chart to filter the rest. Trends, category share, a heatmap and legends on every chart.</p></article>
+<article class="card rv"><span class="ic">🎯</span><h3>Budget planner and alerts</h3><p>Tell it your income and get a suggested budget, or set every limit yourself. Alerts at 80% and when you go over.</p></article>
+<article class="card rv"><span class="ic">💹</span><h3>Salary and investment planner</h3><p>Enter your salary and see how much could go to needs, savings, investments and goals. Change any percentage.</p></article>
+<article class="card rv"><span class="ic">🧠</span><h3>Smart, private insights</h3><p>Learns your categories, forecasts the month, flags unusual spending and finds repeating payments.</p></article>
+<article class="card rv"><span class="ic">💬</span><h3>AI money advisor</h3><p>Ask about budgeting, SIPs, loans, inflation or the economy, or about your own spending. Built-in notes work offline, and AI can be switched on. General education, not a licensed adviser.</p></article>
+<article class="card rv"><span class="ic">🔔</span><h3>EMI and SIP reminders</h3><p>See what is due soon, mark it paid in one tap, or add it to your phone calendar.</p></article>
+<article class="card rv"><span class="ic">⇪</span><h3>Import from PDF or notes</h3><p>Paste notes or choose a bank or UPI PDF. Check the rows, then add them.</p></article>
+<article class="card rv"><span class="ic">🔒</span><h3>PIN and fingerprint lock</h3><p>Keep your money private behind a PIN, with fingerprint or Face ID where your device allows it.</p></article>
+<article class="card rv"><span class="ic">🌐</span><h3>English, हिन्दी, मराठी</h3><p>Switch the app to Hindi or Marathi from Settings.</p></article>
+<article class="card rv"><span class="ic">📴</span><h3>Works offline</h3><p>Your data stays on your device. No account, no ads, no tracking.</p></article>
+<article class="card rv"><span class="ic">☁️</span><h3>Backup and cloud</h3><p>Back up to a file, share it to Drive or iCloud, or turn on optional Google Drive backup.</p></article>
 </div></section>
 
 <section class="wrap" id="how"><h2>How it works</h2><p class="sub">Three steps to a clear picture of your money.</p>
-<div class="steps"><div class="step"><b>Create a month</b>Start with this month. Next month picks up your leftover balance by itself.</div>
-<div class="step"><b>Tap + to add</b>Choose Expense or Credit, pick a category, enter the amount. Or import a PDF or notes.</div>
-<div class="step"><b>Plan, see and share</b>Make a budget, open the dashboard, and download a statement PDF whenever you need one.</div></div></section>
+<div class="steps"><div class="step rv"><b>Create a month</b>Start with this month. Next month picks up your leftover balance by itself.</div>
+<div class="step rv"><b>Add, scan or import</b>Tap +, scan a bill, or import a PDF or notes. Pick expense or credit and a category.</div>
+<div class="step rv"><b>Plan, see and share</b>Make a budget, open the dashboard and download a statement PDF whenever you need one.</div></div></section>
 
-<section class="wrap" id="download"><div class="box"><h2>Get the app</h2><p class="sub" style="margin-bottom:0">Take your expense tracker everywhere. It works offline once installed.</p>
+<section class="wrap" id="download"><div class="box rv"><h2>Get the app</h2><p class="sub" style="margin-bottom:0">Take your expense tracker everywhere. It works offline once installed.</p>
 <div class="stores">
- <a class="store soon" id="dlAndroid" href="#" data-live="Get it on Google Play"><span>▶</span><div><small>Android</small><b>Google Play</b><small class="state">Coming soon</small></div></a>
- <a class="store soon" id="dlIos" href="#" data-live="Download on the App Store"><span>🍎</span><div><small>iPhone and iPad</small><b>App Store</b><small class="state">Coming soon</small></div></a>
+ <a class="store" id="dlAndroid" href="#" data-live="Get it on Google Play"><span>▶</span><div><small>Android</small><b>Google Play</b><small class="state">Coming soon</small></div></a>
+ <a class="store" id="dlIos" href="#" data-live="Download on the App Store"><span>🍎</span><div><small>iPhone and iPad</small><b>App Store</b><small class="state">Coming soon</small></div></a>
 </div>
 <p><a class="btn alt" href="app/">Or use the web app right now</a></p>
 <p class="tip"><b>Install from your browser today:</b> on iPhone open the web app in Safari, tap Share, then Add to Home Screen. On Android open it in Chrome, tap the menu, then Install app.</p></div></section>
@@ -93,6 +126,13 @@ document.getElementById("yr").textContent=new Date().getFullYear();
 /* ===== paste your store links here when the apps are live ===== */
 const LINKS={android:"",ios:""};
 [["dlAndroid","android"],["dlIos","ios"]].forEach(([id,k])=>{const a=document.getElementById(id);
-  if(LINKS[k]){a.href=LINKS[k];a.target="_blank";a.rel="noopener";a.classList.remove("soon");a.querySelector(".state").textContent=a.dataset.live;}
+  if(LINKS[k]){a.href=LINKS[k];a.target="_blank";a.rel="noopener";a.querySelector(".state").textContent=a.dataset.live;}
   else a.addEventListener("click",e=>{e.preventDefault();alert("Coming soon! You can use the web app in the meantime.");});});
+const still=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.15});document.querySelectorAll(".rv").forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+"ms";io.observe(el);});}else document.querySelectorAll(".rv").forEach(el=>el.classList.add("in"));
+let tilt=null;
+if(!still)addEventListener("pointermove",e=>{
+  const r=document.documentElement.style;r.setProperty("--mx",(e.clientX/innerWidth-.5).toFixed(3));r.setProperty("--my",(e.clientY/innerHeight-.5).toFixed(3));
+  const c=e.target.closest&&e.target.closest(".card");if(tilt&&tilt!==c){tilt.style.setProperty("--rx","0deg");tilt.style.setProperty("--ry","0deg");}
+  if(c&&e.pointerType==="mouse"){const b=c.getBoundingClientRect();c.style.setProperty("--ry",(((e.clientX-b.left)/b.width-.5)*10).toFixed(2)+"deg");c.style.setProperty("--rx",(-((e.clientY-b.top)/b.height-.5)*10).toFixed(2)+"deg");}tilt=c;});
 </script></body></html>
